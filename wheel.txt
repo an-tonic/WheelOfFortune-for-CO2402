@@ -1,0 +1,16 @@
+1 500 500EUR
+3 0 Bankrupt
+1 60 60EUR
+1 40 40EUR
+5 0 SecondChance
+1 80 80EUR
+1 200 200EUR
+7 50 Jackpot
+1 30 30EUR
+6 0 Steal
+1 150 150EUR
+1 50 50EUR
+4 0 Bankrupt+
+1 20 20EUR
+1 100 100EUR
+2 0 LoseTurn
