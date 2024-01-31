@@ -28,5 +28,8 @@
     <Text Include="wheel.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="rounds.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

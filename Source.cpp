@@ -17,10 +17,43 @@ public:
 	int type;
 	int amount;
 	string name;
+
+    CSlice(istringstream* stream) {
+        *stream >> this->type >> this->amount >> this->name;
+    }
 };
 
-int ReadFile(string filename, vector<CSlice>* array) {
-    ifstream inputFile("wheel.txt");
+class CRound {
+public:
+    string word;
+
+    CRound(istringstream* stream) {
+     
+        *stream >> this->word;
+        
+    }
+};
+
+
+class CPlayer {
+public:
+    string name;
+
+    CPlayer(string newName) {
+        this->name = newName;
+    }
+};
+
+// Returns a random number in the range 1 .. x
+// Note that I am using casting to convert one data type to another
+int Random(int x)
+{
+    return static_cast<int>(static_cast<double> (rand()) / (RAND_MAX)*x + 1);
+}
+
+template <typename T>
+int ReadFile(string filename, vector<T>* array) {
+    ifstream inputFile(filename);
     
     if (!inputFile.is_open()) {
         cerr << "Error opening the file" << endl;
@@ -33,14 +66,10 @@ int ReadFile(string filename, vector<CSlice>* array) {
     // Read each line from the file
     while (getline(inputFile, line)) {
         istringstream iss(line);
-        CSlice slice;
-
-        if (iss >> slice.type >> slice.amount >> slice.name) {
-            array->push_back(slice);
-        }
-        else {
-            cerr << "Error reading line: " << line << endl;
-        }
+        
+        T object(&iss);  
+        array->push_back(object);            
+          
     }
 
     inputFile.close();
@@ -55,7 +84,23 @@ int main() {
 
     vector<CSlice> SliceArray;
 
-	ReadFile("wheel.txt", &SliceArray);
+	ReadFile<CSlice>("wheel.txt", &SliceArray);
 
-    cout;
+    vector<CRound> RoundArray;
+
+    ReadFile<CRound>("rounds.txt", &RoundArray);
+
+    CPlayer firstPlayer("John");
+    CPlayer firstPlayer("Maria");
+
+
+    cout << "Welcome to WheelOfFortune-ish";
+
+    while (true) {
+
+
+
+    }
+
+
 }

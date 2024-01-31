@@ -133,6 +133,7 @@
     <None Include="CO2402 Assignment 2023-2024.docx" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="rounds.txt" />
     <Text Include="wheel.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
