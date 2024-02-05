@@ -51,56 +51,85 @@ int Random(int x)
     return static_cast<int>(static_cast<double> (rand()) / (RAND_MAX)*x + 1);
 }
 
-template <typename T>
-int ReadFile(string filename, vector<T>* array) {
-    ifstream inputFile(filename);
-    
-    if (!inputFile.is_open()) {
-        cerr << "Error opening the file" << endl;
-        return 1;
+
+
+class Game {
+private:
+    vector<unique_ptr<CSlice>> SlicesArray; 
+    vector<unique_ptr<CRound>> RoundsArray;
+    shared_ptr<CPlayer> firstPlayer;
+    shared_ptr<CPlayer> secondPlayer;
+    weak_ptr<CPlayer> currentPlayer;
+    int currentSlice;
+
+public:
+
+    template <typename T>
+    int ReadFile(string filename, vector<unique_ptr<T>>* array) {
+        ifstream inputFile(filename);
+
+        if (!inputFile.is_open()) {
+            cerr << "Error opening the file" << endl;
+            return 1;
+        }
+
+
+        string line;
+
+        // Read each line from the file
+        while (getline(inputFile, line)) {
+            istringstream iss(line);
+
+            /*T object(&iss);*/
+            array->push_back(make_unique<T>(&iss));
+
+        }
+
+        inputFile.close();
+
+
+        return 0;
+
     }
 
-    
-    string line;
-
-    // Read each line from the file
-    while (getline(inputFile, line)) {
-        istringstream iss(line);
+    Game(){
+        //ToDo
+        currentSlice = 0;
+        ReadFile<CSlice>("wheel.txt", &SlicesArray);
+        ReadFile<CRound>("rounds.txt", &RoundsArray);
+        firstPlayer =  make_shared<CPlayer>("John");
+        secondPlayer = make_shared<CPlayer>("Maria");
+        currentPlayer = firstPlayer;
         
-        T object(&iss);  
-        array->push_back(object);            
-          
     }
 
-    inputFile.close();
+    void SetNextPlayer() {
+        currentPlayer = currentPlayer.lock() == firstPlayer ? secondPlayer : firstPlayer;
+    }
 
+    void StartGame() {
+        cout << "Welcome to WheelOfFortune-ish" << endl;
 
-    return 0;
+        int roundIndex = 1; 
 
-}
+        for (auto& round : RoundsArray) {
+            cout << "Round " << roundIndex++ << ": " << round->word << endl;
 
+            cout << currentPlayer.lock()->name << endl;
+            SetNextPlayer();
+
+        }
+    }
+};
 
 int main() {
 
-    vector<CSlice> SliceArray;
+    
+    
+    auto pGame = make_unique<Game>();
+    
+    pGame->StartGame();
 
-	ReadFile<CSlice>("wheel.txt", &SliceArray);
-
-    vector<CRound> RoundArray;
-
-    ReadFile<CRound>("rounds.txt", &RoundArray);
-
-    CPlayer firstPlayer("John");
-    CPlayer firstPlayer("Maria");
-
-
-    cout << "Welcome to WheelOfFortune-ish";
-
-    while (true) {
-
-
-
-    }
-
+    
 
 }
