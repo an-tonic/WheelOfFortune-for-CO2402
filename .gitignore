@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/WheelOfFortune-for-CO2402.vcxproj
+/WheelOfFortune-for-CO2402.vcxproj.filters
