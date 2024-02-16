@@ -47,9 +47,9 @@ using PlayerPair = pair<shared_ptr<CPlayer>, shared_ptr<CPlayer>>;
 
 class CSlice {
 public:
-	int type;
-	int amount;
-	string name;
+    int type;
+    int amount;
+    string name;
 
     CSlice(istringstream* stream) {
         *stream >> this->type >> this->amount >> this->name;
@@ -65,7 +65,7 @@ public:
 
 class Game {
 private:
-    vector<unique_ptr<CSlice>> SlicesArray; 
+    vector<unique_ptr<CSlice>> SlicesArray;
     vector<unique_ptr<CRound>> RoundsArray;
     shared_ptr<CPlayer> firstPlayer;
     shared_ptr<CPlayer> secondPlayer;
@@ -104,19 +104,19 @@ public:
 
     }
 
-    Game(){
+    Game() {
         currentSliceIndex = 0;
         ReadFile<CSlice>("wheel.txt", &SlicesArray);
         ReadFile<CRound>("rounds.txt", &RoundsArray);
         numberOfSlices = SlicesArray.size();
-        firstPlayer =  make_shared<CPlayer>("John");
+        firstPlayer = make_shared<CPlayer>("John");
         secondPlayer = make_shared<CPlayer>("Maria");
         players = make_pair(firstPlayer, secondPlayer);
         currentPlayer = firstPlayer;
-        
+
     }
 
-   
+
     void SetNextPlayer() {
         currentPlayer = currentPlayer.lock() == firstPlayer ? secondPlayer : firstPlayer;
     }
@@ -124,7 +124,7 @@ public:
     void StartGame() {
         cout << "Welcome to WheelOfFortune-ish" << endl;
 
-        int roundIndex = 1; 
+        int roundIndex = 1;
 
         for (auto& round : RoundsArray) {
             cout << "Round " << roundIndex << ": " << round->word << endl;
@@ -134,15 +134,15 @@ public:
             int index = 0;
             cout << currentPlayer.lock()->name << endl;
             while (++index < 100) {
-                
+
                 //Rolling the next slice
                 int rollNumber = Random(numberOfSlices);
                 currentSliceIndex += rollNumber;
                 //Wrapping around the wheel
-                if (currentSliceIndex > numberOfSlices-1) {
+                if (currentSliceIndex > numberOfSlices - 1) {
                     currentSliceIndex -= numberOfSlices;
                 }
-                cout << currentPlayer.lock()->name << " rolls " << rollNumber << endl;             
+                cout << currentPlayer.lock()->name << " rolls " << rollNumber << endl;
                 cout << currentPlayer.lock()->name << " rolls " << SlicesArray.at(currentSliceIndex)->name << endl;
 
                 bool isNextPlayerTurn = SlicesArray.at(currentSliceIndex)->executeSliceActions(&round, &players, &currentPlayer);
@@ -159,12 +159,12 @@ public:
 };
 
 int main() {
-    
+
     unique_ptr<Game> pGame = make_unique<Game>();
     pGame->StartGame();
 
     pGame.reset();
-    
+
 
     _CrtDumpMemoryLeaks();
 
