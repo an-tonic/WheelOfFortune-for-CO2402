@@ -22,14 +22,16 @@ int Random(int x) {
 class CRound {
 public:
 	string word;
-	vector<bool> revealedLetters;
+	string copyOfWord;
+	bool isFinished;
 
 	string alphbet = "abcdefghigklmnopqrstuvwxyz";
 
 	CRound(istringstream* stream) {
 
 		*stream >> this->word;
-		revealedLetters = vector<bool>(word.length(), false);
+		copyOfWord = word;
+		isFinished = false;
 	}
 
 };
@@ -45,15 +47,21 @@ public:
 
 using PlayerPair = pair<shared_ptr<CPlayer>, shared_ptr<CPlayer>>;
 
-
 class CSlice {
 public:
 	int type;
 	int amount;
 	string name;
 
-	CSlice(istringstream* stream) {
-		*stream >> this->type >> this->amount >> this->name;
+	CSlice(string* line) {
+		istringstream stream(*line);
+		
+		stream >> type >> amount >> name;
+		if (stream.fail()) {
+			cerr << "Error: Failed to parse the string." << endl;
+			
+		}
+		
 	}
 
 
@@ -64,19 +72,33 @@ public:
 
 class CRegularSlice : public CSlice {
 public:
-	using CSlice::CSlice;
 
+	using CSlice::CSlice;
 
 	bool executeSliceActions(unique_ptr<CRound>* round, PlayerPair* players, weak_ptr<CPlayer>* currentPlayer) override {
 		
 		int randint = Random(26);
 		char chosenLetter = round->get()->alphbet[randint];
 		cout << currentPlayer->lock()->name << " guesses " << chosenLetter << endl;
-		if (round->get()->word.find(chosenLetter) != string::npos) {
-			cout << "found";
-		}
+		string* word = &round->get()->copyOfWord;
+		int letterCount = 0;
+		for (int i = 0; i < word->length(); i++) {
+			if (word->at(i) == chosenLetter) {
+				word->erase(i, 1);
 
-		return false;
+				letterCount++;
+			}
+		}
+		cout << currentPlayer->lock()->name << " reveals " << letterCount << " letter" << ((letterCount > 1) || letterCount == 0 ? "s" : "") << endl;
+		
+		//Ending of a players turn
+		if (letterCount > 0) {
+			return false;
+		} else {
+			cout << currentPlayer->lock()->name << " loses turn due to inappropriate letter choice" << endl;
+			return true;
+		}
+		
 	}
 };
 
@@ -138,19 +160,12 @@ public:
 		string line;
 
 		// Read each line from the file
-		while (getline(inputFile, line)) {
-			istringstream iss(line);
-
-			auto temp = make_unique<CSlice>(&iss);
-			auto tmp = make_unique<CRegularSlice>(&iss);
-
+		while (getline(inputFile, line)) {		
 			
-			if (temp->type == 1) {
-				
-
-				array.push_back(move(tmp));
+			if (line[0] == '1') {
+				array.push_back(make_unique<CRegularSlice>(&line));
 			} else {
-				array.push_back(make_unique<CIrregularSlice>(&iss));
+				array.push_back(make_unique<CIrregularSlice>(&line));
 			}
 
 		}
@@ -216,9 +231,6 @@ public:
 
 
 int main() {
-
-	
-
 
 	unique_ptr<Game> pGame = make_unique<Game>();
 	pGame->StartGame();
