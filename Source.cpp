@@ -42,15 +42,15 @@ public:
 	string name;
 	int totalBank;
 	int currentRoundBank;
+	int secondChanceTokens;
 
 	CPlayer(string newName) {
 		totalBank = 0;
 		currentRoundBank = 0;
+		secondChanceTokens = 0;
 		name = newName;
 	}
 };
-
-using PlayerPair = pair<shared_ptr<CPlayer>, shared_ptr<CPlayer>>;
 
 class CSlice {
 public:
@@ -68,7 +68,11 @@ public:
 		}
 		
 	}
-
+	bool executeSlice(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) {
+		cout << currentPlayer.name << " rolls " << this->name << endl;
+		return executeSliceActions(round, opponentPlayer, currentPlayer);
+	}
+	
 
 	virtual bool executeSliceActions(CRound& round,  CPlayer& opponentPlayer, CPlayer& currentPlayer) {
 		return false;
@@ -81,8 +85,6 @@ public:
 		alphabet.erase(chosenInt, 1);
 
 		int letterCount = 0;
-
-		cout << playerName << " rolls " << this->name << endl;
 		cout << playerName << " guesses " << chosenLetter << endl;
 
 		for (int i = 0; i < word.length(); i++) {
@@ -105,9 +107,9 @@ public:
 	using CSlice::CSlice;
 
 	bool executeSliceActions(CRound& round,  CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
-		
-		
+
 		int letterCount = this->revealLetter(round.alphbet, currentPlayer.name, round.copyOfWord);
+
 
 		cout << currentPlayer.name << " reveals " << letterCount << " letter" << ((letterCount > 1) || letterCount == 0 ? "s" : "") << endl;
 		int sliceBank = this->amount * letterCount;
@@ -119,6 +121,7 @@ public:
 			cout << currentPlayer.name << " wins round and banks " << currentPlayer.currentRoundBank << endl;
 			
 			currentPlayer.totalBank += currentPlayer.currentRoundBank;
+			opponentPlayer.totalBank += opponentPlayer.currentRoundBank;
 			cout << currentPlayer.name << "'s total banked amount is " << currentPlayer.totalBank << endl;
 			cout << opponentPlayer.name << "'s total banked amount is " << opponentPlayer.totalBank << endl;
 			currentPlayer.currentRoundBank = 0;
@@ -145,7 +148,7 @@ public:
 	using CSlice::CSlice;
 
 	bool executeSliceActions(CRound& round,  CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
-		cout << currentPlayer.name << " rolls " << this->name << endl;
+			
 		cout << currentPlayer.name << " loses turn" << endl;
 
 		return true;
@@ -156,29 +159,77 @@ class CStealSlice : public CSlice {
 public:
 	using CSlice::CSlice;
 
-	bool executeSliceActions(CRound& round,  CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
+	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
+
 		int letterCount = this->revealLetter(round.alphbet, currentPlayer.name, round.copyOfWord);
 
 		if (letterCount > 0) {
-			//identify the opponent
-
+			opponentPlayer.totalBank *= 0.5;
+			currentPlayer.totalBank += opponentPlayer.totalBank;
+			cout << currentPlayer.name << " steals " << opponentPlayer.totalBank << " from " << opponentPlayer.name << endl;
 		}
 		return true;
 	}
 };
 
-
-class CIrregularSlice : public CSlice {
+class CJackpotSlice : public CSlice {
 public:
 	using CSlice::CSlice;
 
-	bool executeSliceActions(CRound& round,  CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
-		cout << currentPlayer.name << " rolls " << this->name << endl;
-		
+	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
+
+		int letterCount = this->revealLetter(round.alphbet, currentPlayer.name, round.copyOfWord);
+
+		if (letterCount > 0) {
+			
+			currentPlayer.totalBank *= 2;
+			cout << currentPlayer.name << " doubles banked money" << endl;
+		}
 		return true;
 	}
 };
 
+class CBankruptSlice : public CSlice {
+public:
+	using CSlice::CSlice;
+
+	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
+
+		currentPlayer.currentRoundBank = 0;
+		currentPlayer.secondChanceTokens = 0;
+		return true;
+	}
+};
+
+class CBankruptPlusSlice : public CBankruptSlice {
+public:
+	using CBankruptSlice::CBankruptSlice;
+
+	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
+		
+		CBankruptSlice::executeSliceActions(round, opponentPlayer, currentPlayer);
+
+		
+		currentPlayer.totalBank = 0;  
+		cout << currentPlayer.name << " rolls Bankrupt+ and loses everything" << endl;
+		return true;
+	}
+};
+
+class CSecondChance : public CSlice {
+public:
+	using CSlice::CSlice;
+
+	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
+
+		int letterCount = this->revealLetter(round.alphbet, currentPlayer.name, round.copyOfWord);
+
+		if (letterCount > 0) {
+			currentPlayer.secondChanceTokens += 1;
+		}
+		return true;
+	}
+};
 
 
 class Game {
@@ -232,9 +283,20 @@ public:
 				array.push_back(make_unique<CRegularSlice>(&line));
 			} else if (line[0] == '2') {
 				array.push_back(make_unique<CLoseTurnSlice>(&line));
+			} else if (line[0] == '3') {
+				array.push_back(make_unique<CBankruptSlice>(&line));
+			} else if (line[0] == '4') {
+				array.push_back(make_unique<CBankruptPlusSlice>(&line));
+			} else if (line[0] == '5') {
+				array.push_back(make_unique<CSecondChance>(&line));
+			} else if (line[0] == '6') {
+				array.push_back(make_unique<CStealSlice>(&line));
+			} else if (line[0] == '7') {
+				array.push_back(make_unique<CJackpotSlice>(&line));
 			}
 			else {
-				array.push_back(make_unique<CIrregularSlice>(&line));
+				cerr << "Could not create a slice";
+				exit(1);
 			}
 
 		}
@@ -254,10 +316,10 @@ public:
 		opponentPlayer = secondPlayer;
 	}
 
-
 	void SetNextPlayer() {
-		currentPlayer = currentPlayer.lock() == firstPlayer ? secondPlayer : firstPlayer;
-		opponentPlayer = currentPlayer.lock() == firstPlayer ? firstPlayer : secondPlayer;
+		
+		currentPlayer = (currentPlayer.lock() == firstPlayer) ? secondPlayer : firstPlayer;
+		opponentPlayer = (currentPlayer.lock() == firstPlayer) ? secondPlayer : firstPlayer;
 
 	}
 
@@ -285,8 +347,9 @@ public:
 				cout << currentPlayer.lock()->name << " rolls " << rollNumber << endl;
 				
 
-				bool isNextPlayerTurn = SlicesArray.at(currentSliceIndex)->executeSliceActions(*round, *opponentPlayer.lock(), *currentPlayer.lock());
-
+				bool isNextPlayerTurn = SlicesArray.at(currentSliceIndex)->executeSlice(*round, *opponentPlayer.lock(), *currentPlayer.lock());
+				
+				
 				if (isNextPlayerTurn) {
 					SetNextPlayer();
 				}
@@ -297,7 +360,6 @@ public:
 		}
 	}
 };
-
 
 
 
