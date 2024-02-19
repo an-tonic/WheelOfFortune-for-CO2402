@@ -12,9 +12,10 @@ using namespace std;
 
 
 //Util functions
-// Returns a random number in the range 1 .. x
+// Returns a random number in the range 0 .. x
 // Note that I am using casting to convert one data type to another
 int Random(int x) {
+	
 	return static_cast<int>(static_cast<double> (rand()) / (RAND_MAX)*x + 1);
 }
 
@@ -25,7 +26,7 @@ public:
 	string copyOfWord;
 	bool isFinished;
 
-	string alphbet = "abcdefghigklmnopqrstuvwxyz";
+	string alphbet = "abcdefghijklmnopqrstuvwxyz";
 
 	CRound(istringstream* stream) {
 
@@ -39,9 +40,13 @@ public:
 class CPlayer {
 public:
 	string name;
+	int totalBank;
+	int currentRoundBank;
 
 	CPlayer(string newName) {
-		this->name = newName;
+		totalBank = 0;
+		currentRoundBank = 0;
+		name = newName;
 	}
 };
 
@@ -65,7 +70,7 @@ public:
 	}
 
 
-	virtual bool executeSliceActions(unique_ptr<CRound>* round, PlayerPair* players, weak_ptr<CPlayer>* currentPlayer) {
+	virtual bool executeSliceActions(CRound& round, PlayerPair& players, CPlayer& currentPlayer) {
 		return false;
 	}
 };
@@ -75,30 +80,62 @@ public:
 
 	using CSlice::CSlice;
 
-	bool executeSliceActions(unique_ptr<CRound>* round, PlayerPair* players, weak_ptr<CPlayer>* currentPlayer) override {
-		
-		int randint = Random(26);
-		char chosenLetter = round->get()->alphbet[randint];
-		cout << currentPlayer->lock()->name << " guesses " << chosenLetter << endl;
-		string* word = &round->get()->copyOfWord;
+	bool executeSliceActions(CRound& round, PlayerPair& players, CPlayer& currentPlayer) override {
+		cout << currentPlayer.name << " rolls " << this->name << endl;
+		int chosenInt = Random(round.alphbet.length())-1;
+		char chosenLetter = round.alphbet[chosenInt];
+		round.alphbet.erase(chosenInt, 1);
+		cout << currentPlayer.name << " guesses " << chosenLetter << endl;
+		string* word = &round.copyOfWord;
 		int letterCount = 0;
 		for (int i = 0; i < word->length(); i++) {
 			if (word->at(i) == chosenLetter) {
 				word->erase(i, 1);
-
+				
+				i--; //If the same letter is consecutive need to return to the same index
 				letterCount++;
 			}
 		}
-		cout << currentPlayer->lock()->name << " reveals " << letterCount << " letter" << ((letterCount > 1) || letterCount == 0 ? "s" : "") << endl;
-		
+		cout << currentPlayer.name << " reveals " << letterCount << " letter" << ((letterCount > 1) || letterCount == 0 ? "s" : "") << endl;
+		int sliceBank = this->amount * letterCount;
+		currentPlayer.currentRoundBank += sliceBank;
+
+		//Ending the round
+		if (word->length() == 0) {
+			cout << "Game Over" << endl;;
+			cout << currentPlayer.name << " wins round and banks " << currentPlayer.currentRoundBank << endl;
+			
+			currentPlayer.totalBank += currentPlayer.currentRoundBank;
+			cout << players.first->name << "'s total banked amount is " << players.first->totalBank << endl;
+			cout << players.second->name << "'s total banked amount is " << players.second->totalBank << endl;
+			players.first->currentRoundBank = 0;
+			players.second->currentRoundBank = 0;
+			round.isFinished = true;
+			return false;
+		}
 		//Ending of a players turn
 		if (letterCount > 0) {
+			
+			cout << currentPlayer.name << " earns " << sliceBank << endl;
+			
 			return false;
 		} else {
-			cout << currentPlayer->lock()->name << " loses turn due to inappropriate letter choice" << endl;
+			cout << currentPlayer.name << " loses turn due to inappropriate letter choice" << endl;
 			return true;
 		}
 		
+	}
+};
+
+class CLoseTurnSlice : public CSlice {
+public:
+	using CSlice::CSlice;
+
+	bool executeSliceActions(CRound& round, PlayerPair& players, CPlayer& currentPlayer) override {
+		cout << currentPlayer.name << " rolls " << this->name << endl;
+		cout << currentPlayer.name << " loses turn" << endl;
+
+		return true;
 	}
 };
 
@@ -106,7 +143,7 @@ class CIrregularSlice : public CSlice {
 public:
 	using CSlice::CSlice;
 
-	bool executeSliceActions(unique_ptr<CRound>* round, PlayerPair* players, weak_ptr<CPlayer>* currentPlayer) override {
+	bool executeSliceActions(CRound& round, PlayerPair& players, CPlayer& currentPlayer) override {
 
 		
 		return true;
@@ -164,7 +201,10 @@ public:
 			
 			if (line[0] == '1') {
 				array.push_back(make_unique<CRegularSlice>(&line));
-			} else {
+			} else if (line[0] == '2') {
+				array.push_back(make_unique<CLoseTurnSlice>(&line));
+			}
+			else {
 				array.push_back(make_unique<CIrregularSlice>(&line));
 			}
 
@@ -202,7 +242,7 @@ public:
 			currentPlayer = (roundIndex % 2 == 0) ? secondPlayer : firstPlayer;
 			int index = 0;
 			
-			while (++index < 100) {
+			while (!round.get()->isFinished) {
 
 				//Rolling the next slice
 				int rollNumber = Random(numberOfSlices);
@@ -212,9 +252,9 @@ public:
 					currentSliceIndex -= numberOfSlices;
 				}
 				cout << currentPlayer.lock()->name << " rolls " << rollNumber << endl;
-				cout << currentPlayer.lock()->name << " rolls " << SlicesArray.at(currentSliceIndex)->name << endl;
+				
 
-				bool isNextPlayerTurn = SlicesArray.at(currentSliceIndex)->executeSliceActions(&round, &players, &currentPlayer);
+				bool isNextPlayerTurn = SlicesArray.at(currentSliceIndex)->executeSliceActions(*round, players, *currentPlayer.lock());
 
 				if (isNextPlayerTurn) {
 					SetNextPlayer();
@@ -231,6 +271,7 @@ public:
 
 
 int main() {
+
 
 	unique_ptr<Game> pGame = make_unique<Game>();
 	pGame->StartGame();
