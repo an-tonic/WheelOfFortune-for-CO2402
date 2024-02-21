@@ -234,12 +234,12 @@ private:
 
 public:
 
-	int ReadFileWithRounds(string filename, vector<unique_ptr<CRound>>& array) {
+	void ReadFileWithRounds(string filename, vector<unique_ptr<CRound>>& array) {
 		ifstream inputFile(filename);
 
 		if (!inputFile.is_open()) {
 			cerr << "Error opening the file" << endl;
-			return 1;
+			exit(1);
 		}
 
 		string line;
@@ -251,15 +251,14 @@ public:
 			array.push_back(make_unique<CRound>(&iss));
 		}
 		inputFile.close();
-		return 0;
 	}
 
-	int ReadFileWithSlices(string filename, vector<unique_ptr<CSlice>>& array) {
+	void ReadFileWithSlices(string filename, vector<unique_ptr<CSlice>>& array) {
 		ifstream inputFile(filename);
 
 		if (!inputFile.is_open()) {
 			cerr << "Error opening the file" << endl;
-			return 1;
+			exit(1);
 		}
 
 		string line;
@@ -290,13 +289,30 @@ public:
 		}
 
 		inputFile.close();
-		return 0;
+	}
+
+	void ReadFileWithSeed(string filename) {
+		ifstream inputFile(filename);
+
+		if (!inputFile.is_open()) {
+			cerr << "Error opening the file" << endl;
+			exit(1);
+		}
+
+		string line;
+
+		while (getline(inputFile, line)) {
+			int seed = stoi(line);
+			srand(seed);
+		}
+		inputFile.close();
 	}
 
 	Game() {
 		currentSliceIndex = 0;
 		ReadFileWithSlices("wheel.txt", SlicesArray);
 		ReadFileWithRounds("rounds.txt", RoundsArray);
+		ReadFileWithSeed("seed.txt");
 		numberOfSlices = SlicesArray.size();
 		firstPlayer = make_shared<CPlayer>("John");
 		secondPlayer = make_shared<CPlayer>("Maria");
