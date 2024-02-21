@@ -167,6 +167,7 @@ public:
 			opponentPlayer.totalBank *= 0.5;
 			currentPlayer.totalBank += opponentPlayer.totalBank;
 			cout << currentPlayer.name << " steals " << opponentPlayer.totalBank << " from " << opponentPlayer.name << endl;
+			return false;
 		}
 		return true;
 	}
@@ -184,6 +185,7 @@ public:
 			
 			currentPlayer.totalBank *= 2;
 			cout << currentPlayer.name << " doubles banked money" << endl;
+			return false;
 		}
 		return true;
 	}
