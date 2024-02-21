@@ -116,24 +116,16 @@ public:
 	bool executeSliceActions(CRound& round,  CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
 		int letterCount = this->revealLetter(round, opponentPlayer, currentPlayer);
-
-
-		
-		int sliceBank = this->amount * letterCount;
-		currentPlayer.currentRoundBank += sliceBank;
-
-		
-		//Ending of a players turn
+	
 		if (letterCount > 0) {
-			
+			int sliceBank = this->amount * letterCount;
+			currentPlayer.currentRoundBank += sliceBank;
 			cout << currentPlayer.name << " earns " << sliceBank << endl;
-			
 			return false;
-		} else {
-			cout << currentPlayer.name << " loses turn due to inappropriate letter choice" << endl;
-			return true;
 		}
-		
+
+		cout << currentPlayer.name << " loses turn due to inappropriate letter choice" << endl;
+		return true;
 	}
 };
 
@@ -144,7 +136,6 @@ public:
 	bool executeSliceActions(CRound& round,  CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 			
 		cout << currentPlayer.name << " loses turn" << endl;
-
 		return true;
 	}
 };
