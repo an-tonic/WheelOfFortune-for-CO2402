@@ -78,22 +78,29 @@ public:
 		return false;
 	}
 
-	int revealLetter(string& alphabet, string& playerName, string& word) {
+	int revealLetter(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) {
 
-		int chosenInt = Random(alphabet.length()) - 1;
-		char chosenLetter = alphabet[chosenInt];
-		alphabet.erase(chosenInt, 1);
+		int chosenInt = Random(round.alphbet.length()) - 1;
+		char chosenLetter = round.alphbet[chosenInt];
+		round.alphbet.erase(chosenInt, 1);
 
 		int letterCount = 0;
-		cout << playerName << " guesses " << chosenLetter << endl;
+		cout << currentPlayer.name << " guesses " << chosenLetter << endl;
 
-		for (int i = 0; i < word.length(); i++) {
-			if (word.at(i) == chosenLetter) {
-				word.erase(i, 1);
+		for (int i = 0; i < round.copyOfWord.length(); i++) {
+			if (round.copyOfWord.at(i) == chosenLetter) {
+				round.copyOfWord.erase(i, 1);
 
 				i--; //If the same letter is consecutive need to return to the same index
 				letterCount++;
 			}
+		}
+		cout << currentPlayer.name << " reveals " << letterCount << " letter" << ((letterCount > 1) || letterCount == 0 ? "s" : "") << endl;
+
+		//Ending the round
+		if (round.copyOfWord.length() == 0) {
+
+			round.isFinished = true;
 		}
 
 		return letterCount;
@@ -108,27 +115,14 @@ public:
 
 	bool executeSliceActions(CRound& round,  CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
-		int letterCount = this->revealLetter(round.alphbet, currentPlayer.name, round.copyOfWord);
+		int letterCount = this->revealLetter(round, opponentPlayer, currentPlayer);
 
 
-		cout << currentPlayer.name << " reveals " << letterCount << " letter" << ((letterCount > 1) || letterCount == 0 ? "s" : "") << endl;
+		
 		int sliceBank = this->amount * letterCount;
 		currentPlayer.currentRoundBank += sliceBank;
 
-		//Ending the round
-		if (round.copyOfWord.length() == 0) {
-			cout << "Game Over" << endl;;
-			cout << currentPlayer.name << " wins round and banks " << currentPlayer.currentRoundBank << endl;
-			
-			currentPlayer.totalBank += currentPlayer.currentRoundBank;
-			opponentPlayer.totalBank += opponentPlayer.currentRoundBank;
-			cout << currentPlayer.name << "'s total banked amount is " << currentPlayer.totalBank << endl;
-			cout << opponentPlayer.name << "'s total banked amount is " << opponentPlayer.totalBank << endl;
-			currentPlayer.currentRoundBank = 0;
-			opponentPlayer.currentRoundBank = 0;
-			round.isFinished = true;
-			return false;
-		}
+		
 		//Ending of a players turn
 		if (letterCount > 0) {
 			
@@ -161,7 +155,7 @@ public:
 
 	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
-		int letterCount = this->revealLetter(round.alphbet, currentPlayer.name, round.copyOfWord);
+		int letterCount = this->revealLetter(round, opponentPlayer, currentPlayer);
 
 		if (letterCount > 0) {
 			opponentPlayer.totalBank *= 0.5;
@@ -179,7 +173,7 @@ public:
 
 	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
-		int letterCount = this->revealLetter(round.alphbet, currentPlayer.name, round.copyOfWord);
+		int letterCount = this->revealLetter(round, opponentPlayer, currentPlayer);
 
 		if (letterCount > 0) {
 			
@@ -224,10 +218,11 @@ public:
 
 	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
-		int letterCount = this->revealLetter(round.alphbet, currentPlayer.name, round.copyOfWord);
+		int letterCount = this->revealLetter(round, opponentPlayer, currentPlayer);
 
 		if (letterCount > 0) {
 			currentPlayer.secondChanceTokens += 1;
+			return false;
 		}
 		return true;
 	}
@@ -355,8 +350,17 @@ public:
 				if (isNextPlayerTurn) {
 					SetNextPlayer();
 				}
-			}
 
+			}
+			cout << "Game Over" << endl;;
+			cout << currentPlayer.lock()->name << " wins the round and banks " << currentPlayer.lock()->currentRoundBank << endl;
+
+			currentPlayer.lock()->totalBank += currentPlayer.lock()->currentRoundBank;
+			opponentPlayer.lock()->totalBank += opponentPlayer.lock()->currentRoundBank;
+			cout << currentPlayer.lock()->name << "'s total banked amount is " << currentPlayer.lock()->totalBank << endl;
+			cout << opponentPlayer.lock()->name << "'s total banked amount is " << opponentPlayer.lock()->totalBank << endl;
+			currentPlayer.lock()->currentRoundBank = 0;
+			opponentPlayer.lock()->currentRoundBank = 0;
 
 			roundIndex++;
 		}
