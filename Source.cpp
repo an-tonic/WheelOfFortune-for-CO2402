@@ -212,6 +212,7 @@ public:
 		int letterCount = this->revealLetter(round, opponentPlayer, currentPlayer);
 
 		if (letterCount > 0) {
+			cout << "Number of SecondChance tokens earned: " << 1 << endl;
 			currentPlayer.secondChanceTokens += 1;
 			return false;
 		}
@@ -353,6 +354,13 @@ public:
 
 				bool isNextPlayerTurn = SlicesArray.at(currentSliceIndex)->executeSlice(*round, *opponentPlayer.lock(), *currentPlayer.lock());
 				
+				if (currentPlayer.lock()->secondChanceTokens > 0 && isNextPlayerTurn) {
+					isNextPlayerTurn = false;
+					currentPlayer.lock()->secondChanceTokens--;
+					cout << currentPlayer.lock()->name << " uses SecondChance token" << endl;
+					cout << "Remaining SecondChance tokens: " << currentPlayer.lock()->secondChanceTokens << endl;
+
+				}
 				
 				if (isNextPlayerTurn) {
 					SetNextPlayer();

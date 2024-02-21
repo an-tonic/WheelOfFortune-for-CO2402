@@ -2,559 +2,567 @@ Welcome to WheelOfFortune-ish
 Round 1: prerequisite
 John rolls 1
 John rolls Bankrupt
-Maria rolls 10
-Maria rolls 50EUR
-Maria guesses f
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 13
-John rolls 30EUR
-John guesses p
-John reveals 1 letter
-John earns 30
-John rolls 8
-John rolls 500EUR
-John guesses j
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
 Maria rolls 15
-Maria rolls LoseTurn
-Maria loses turn
-John rolls 14
-John rolls 20EUR
-John guesses u
-John reveals 1 letter
-John earns 20
-John rolls 3
-John rolls 500EUR
-John guesses w
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 12
-Maria rolls Bankrupt+
-Maria rolls Bankrupt+ and loses everything
-John rolls 9
-John rolls 80EUR
-John guesses h
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 1
-Maria rolls 200EUR
-Maria guesses b
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 6
-John rolls Bankrupt+
-John rolls Bankrupt+ and loses everything
-Maria rolls 3
-Maria rolls LoseTurn
-Maria loses turn
-John rolls 3
-John rolls 60EUR
-John guesses z
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 8
-Maria rolls 150EUR
-Maria guesses d
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 1
-John rolls 50EUR
-John guesses a
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 7
-Maria rolls 60EUR
-Maria guesses o
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 10
-John rolls Bankrupt+
-John rolls Bankrupt+ and loses everything
-Maria rolls 10
-Maria rolls 200EUR
-Maria guesses r
-Maria reveals 2 letters
-Maria earns 400
-Maria rolls 3
-Maria rolls Steal
-Maria guesses s
-Maria reveals 1 letter
-Maria steals 0 from John
-Maria rolls 8
-Maria rolls Bankrupt
-John rolls 6
-John rolls Jackpot
-John guesses c
-John reveals 0 letters
-Maria rolls 10
-Maria rolls Bankrupt
-John rolls 13
-John rolls 100EUR
-John guesses v
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 9
-Maria rolls Jackpot
-Maria guesses k
-Maria reveals 0 letters
-John rolls 15
-John rolls 200EUR
-John guesses t
-John reveals 1 letter
-John earns 200
-John rolls 16
-John rolls 200EUR
-John guesses y
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 9
-Maria rolls LoseTurn
-Maria loses turn
-John rolls 3
-John rolls 60EUR
-John guesses l
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 4
-Maria rolls 200EUR
-Maria guesses x
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 4
-John rolls 150EUR
-John guesses n
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 14
-Maria rolls 30EUR
-Maria guesses q
-Maria reveals 1 letter
-Maria earns 30
-Maria rolls 16
-Maria rolls 30EUR
-Maria guesses i
-Maria reveals 2 letters
-Maria earns 60
-Maria rolls 7
-Maria rolls LoseTurn
-Maria loses turn
-John rolls 5
-John rolls SecondChance
-John guesses e
-John reveals 3 letters
-Game Over
-John wins the round and banks 200
-John's total banked amount is 200
-Maria's total banked amount is 90
-Round 2: anatomy
-Maria rolls 14
-Maria rolls 60EUR
-Maria guesses a
-Maria reveals 2 letters
-Maria earns 120
-Maria rolls 7
-Maria rolls Steal
-Maria guesses d
-Maria reveals 0 letters
-John rolls 11
-John rolls SecondChance
-John guesses c
-John reveals 0 letters
-Maria rolls 1
-Maria rolls 80EUR
-Maria guesses y
-Maria reveals 1 letter
-Maria earns 80
-Maria rolls 5
-Maria rolls 150EUR
+Maria rolls 500EUR
 Maria guesses j
 Maria reveals 0 letters
 Maria loses turn due to inappropriate letter choice
-John rolls 10
-John rolls SecondChance
-John guesses s
-John reveals 0 letters
+John rolls 12
+John rolls Bankrupt+
+John rolls Bankrupt+ and loses everything
 Maria rolls 14
-Maria rolls 60EUR
-Maria guesses t
-Maria reveals 1 letter
-Maria earns 60
-Maria rolls 8
 Maria rolls 150EUR
-Maria guesses g
+Maria guesses y
 Maria reveals 0 letters
 Maria loses turn due to inappropriate letter choice
 John rolls 12
 John rolls 200EUR
 John guesses n
-John reveals 1 letter
-John earns 200
-John rolls 8
-John rolls 100EUR
-John guesses z
 John reveals 0 letters
 John loses turn due to inappropriate letter choice
-Maria rolls 12
-Maria rolls 150EUR
-Maria guesses e
+Maria rolls 14
+Maria rolls SecondChance
+Maria guesses z
+Maria reveals 0 letters
+John rolls 3
+John rolls Jackpot
+John guesses v
+John reveals 0 letters
+Maria rolls 7
+Maria rolls 100EUR
+Maria guesses m
 Maria reveals 0 letters
 Maria loses turn due to inappropriate letter choice
-John rolls 10
-John rolls SecondChance
-John guesses l
-John reveals 0 letters
-Maria rolls 12
-Maria rolls 500EUR
-Maria guesses q
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 10
-John rolls 150EUR
-John guesses k
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
+John rolls 1
+John rolls LoseTurn
+John loses turn
 Maria rolls 3
-Maria rolls 20EUR
+Maria rolls 60EUR
 Maria guesses h
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 10
+John rolls Bankrupt+
+John rolls Bankrupt+ and loses everything
+Maria rolls 6
+Maria rolls 60EUR
+Maria guesses a
 Maria reveals 0 letters
 Maria loses turn due to inappropriate letter choice
 John rolls 7
-John rolls SecondChance
-John guesses v
-John reveals 0 letters
-Maria rolls 9
-Maria rolls 20EUR
-Maria guesses x
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 13
-John rolls 150EUR
-John guesses m
-John reveals 1 letter
-John earns 150
-John rolls 3
-John rolls 20EUR
-John guesses r
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 8
-Maria rolls 80EUR
-Maria guesses b
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 12
-John rolls Bankrupt
-Maria rolls 9
-Maria rolls 150EUR
-Maria guesses f
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 16
-John rolls 150EUR
+John rolls Steal
 John guesses i
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 15
-Maria rolls Steal
-Maria guesses u
-Maria reveals 0 letters
-John rolls 5
-John rolls 100EUR
-John guesses p
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 2
-Maria rolls 500EUR
-Maria guesses w
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 11
-John rolls 50EUR
-John guesses o
+John reveals 2 letters
+John steals 0 from Maria
+John rolls 16
+John rolls Steal
+John guesses u
 John reveals 1 letter
-John earns 50
-Game Over
-John wins the round and banks 50
-John's total banked amount is 250
-Maria's total banked amount is 350
-Round 3: bubble
-John rolls 15
-John rolls 150EUR
-John guesses v
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 10
-Maria rolls SecondChance
-Maria guesses e
-Maria reveals 1 letter
-Maria rolls 3
-Maria rolls Jackpot
-Maria guesses u
-Maria reveals 1 letter
-Maria doubles banked money
-Maria rolls 8
-Maria rolls LoseTurn
-Maria loses turn
+John steals 0 from Maria
+John rolls 13
+John rolls 200EUR
+John guesses r
+John reveals 2 letters
+John earns 400
 John rolls 3
-John rolls 60EUR
-John guesses m
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 12
-Maria rolls 100EUR
-Maria guesses j
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 5
-John rolls 40EUR
+John rolls Steal
 John guesses o
 John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 11
-Maria rolls 100EUR
-Maria guesses t
+Maria rolls 14
+Maria rolls Jackpot
+Maria guesses c
 Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 12
-John rolls 150EUR
-John guesses l
-John reveals 1 letter
-John earns 150
-John rolls 2
-John rolls Bankrupt+
-John rolls Bankrupt+ and loses everything
-Maria rolls 6
-Maria rolls 60EUR
-Maria guesses x
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 1
-John rolls 40EUR
-John guesses k
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 11
-Maria rolls 100EUR
-Maria guesses h
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 2
-John rolls 500EUR
-John guesses z
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 15
-Maria rolls LoseTurn
-Maria loses turn
 John rolls 9
-John rolls 30EUR
+John rolls 500EUR
 John guesses f
 John reveals 0 letters
 John loses turn due to inappropriate letter choice
-Maria rolls 8
-Maria rolls 500EUR
+Maria rolls 3
+Maria rolls 40EUR
+Maria guesses l
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 4
+John rolls Jackpot
+John guesses k
+John reveals 0 letters
+Maria rolls 1
+Maria rolls 30EUR
+Maria guesses p
+Maria reveals 1 letter
+Maria earns 30
+Maria rolls 2
+Maria rolls 150EUR
 Maria guesses g
 Maria reveals 0 letters
 Maria loses turn due to inappropriate letter choice
-John rolls 14
-John rolls 100EUR
-John guesses d
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 8
-Maria rolls 200EUR
-Maria guesses c
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 16
-John rolls 200EUR
-John guesses i
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 12
-Maria rolls 60EUR
-Maria guesses r
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 4
-John rolls 200EUR
+John rolls 13
+John rolls Jackpot
 John guesses w
 John reveals 0 letters
-John loses turn due to inappropriate letter choice
+Maria rolls 6
+Maria rolls 20EUR
+Maria guesses q
+Maria reveals 1 letter
+Maria earns 20
 Maria rolls 14
-Maria rolls SecondChance
-Maria guesses n
-Maria reveals 0 letters
-John rolls 9
-John rolls 20EUR
-John guesses y
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 1
-Maria rolls 100EUR
-Maria guesses s
+Maria rolls 50EUR
+Maria guesses d
 Maria reveals 0 letters
 Maria loses turn due to inappropriate letter choice
-John rolls 10
-John rolls 30EUR
-John guesses a
+John rolls 14
+John rolls Steal
+John guesses e
+John reveals 3 letters
+John steals 0 from Maria
+John rolls 7
+John rolls 500EUR
+John guesses x
 John reveals 0 letters
 John loses turn due to inappropriate letter choice
-Maria rolls 9
-Maria rolls Bankrupt
-John rolls 4
-John rolls 80EUR
-John guesses q
-John reveals 0 letters
-John loses turn due to inappropriate letter choice
-Maria rolls 11
+Maria rolls 16
 Maria rolls 500EUR
+Maria guesses s
+Maria reveals 1 letter
+Maria earns 500
+Maria rolls 8
+Maria rolls 30EUR
+Maria guesses b
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 2
+John rolls 150EUR
+John guesses t
+John reveals 1 letter
+John earns 150
+Game Over
+John wins the round and banks 550
+John's total banked amount is 550
+Maria's total banked amount is 550
+Round 2: anatomy
+Maria rolls 14
+Maria rolls 30EUR
 Maria guesses p
 Maria reveals 0 letters
 Maria loses turn due to inappropriate letter choice
-John rolls 4
-John rolls SecondChance
-John guesses b
-John reveals 3 letters
-Game Over
-John wins the round and banks 0
-John's total banked amount is 0
-Maria's total banked amount is 700
-Round 4: triangulate
-Maria rolls 2
-Maria rolls 200EUR
-Maria guesses c
+John rolls 15
+John rolls Jackpot
+John guesses u
+John reveals 0 letters
+Maria rolls 3
+Maria rolls 150EUR
+Maria guesses s
 Maria reveals 0 letters
 Maria loses turn due to inappropriate letter choice
-John rolls 12
-John rolls 60EUR
-John guesses i
+John rolls 2
+John rolls Bankrupt+
+John rolls Bankrupt+ and loses everything
+Maria rolls 3
+Maria rolls LoseTurn
+Maria loses turn
+John rolls 7
+John rolls 200EUR
+John guesses n
 John reveals 1 letter
-John earns 60
-John rolls 16
-John rolls 60EUR
-John guesses h
+John earns 200
+John rolls 7
+John rolls 20EUR
+John guesses z
 John reveals 0 letters
 John loses turn due to inappropriate letter choice
-Maria rolls 6
-Maria rolls 30EUR
-Maria guesses e
-Maria reveals 1 letter
-Maria earns 30
-Maria rolls 12
-Maria rolls SecondChance
-Maria guesses w
+Maria rolls 5
+Maria rolls 60EUR
+Maria guesses j
 Maria reveals 0 letters
-John rolls 12
-John rolls 500EUR
+Maria loses turn due to inappropriate letter choice
+John rolls 8
+John rolls 150EUR
+John guesses a
+John reveals 2 letters
+John earns 300
+John rolls 14
+John rolls 30EUR
+John guesses y
+John reveals 1 letter
+John earns 30
+John rolls 14
+John rolls 200EUR
+John guesses i
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 16
+Maria rolls 200EUR
+Maria guesses h
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 4
+John rolls 150EUR
+John guesses g
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 16
+Maria rolls 150EUR
+Maria guesses o
+Maria reveals 1 letter
+Maria earns 150
+Maria rolls 4
+Maria rolls 100EUR
+Maria guesses d
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 14
+John rolls Bankrupt+
+John rolls Bankrupt+ and loses everything
+Maria rolls 5
+Maria rolls Bankrupt
+John rolls 7
+John rolls 30EUR
 John guesses q
 John reveals 0 letters
 John loses turn due to inappropriate letter choice
-Maria rolls 12
-Maria rolls Bankrupt+
-Maria rolls Bankrupt+ and loses everything
-John rolls 5
-John rolls Bankrupt
-Maria rolls 3
-Maria rolls SecondChance
-Maria guesses a
-Maria reveals 2 letters
-Maria rolls 1
+Maria rolls 13
 Maria rolls 80EUR
 Maria guesses v
 Maria reveals 0 letters
 Maria loses turn due to inappropriate letter choice
-John rolls 14
-John rolls 40EUR
-John guesses g
-John reveals 1 letter
-John earns 40
 John rolls 2
-John rolls 80EUR
-John guesses p
+John rolls Jackpot
+John guesses f
+John reveals 0 letters
+Maria rolls 13
+Maria rolls SecondChance
+Maria guesses k
+Maria reveals 0 letters
+John rolls 11
+John rolls LoseTurn
+John loses turn
+Maria rolls 10
+Maria rolls Steal
+Maria guesses l
+Maria reveals 0 letters
+John rolls 8
+John rolls Bankrupt
+Maria rolls 3
+Maria rolls SecondChance
+Maria guesses x
+Maria reveals 0 letters
+John rolls 13
+John rolls Bankrupt
+Maria rolls 5
+Maria rolls 200EUR
+Maria guesses w
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 11
+John rolls Bankrupt
+Maria rolls 9
+Maria rolls 150EUR
+Maria guesses e
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 10
+John rolls SecondChance
+John guesses c
+John reveals 0 letters
+Maria rolls 1
+Maria rolls 80EUR
+Maria guesses r
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 15
+John rolls SecondChance
+John guesses t
+John reveals 1 letter
+Number of SecondChance tokens earned: 1
+John rolls 11
+John rolls LoseTurn
+John loses turn
+John uses SecondChance token
+Remaining SecondChance tokens: 0
+John rolls 14
+John rolls 20EUR
+John guesses m
+John reveals 1 letter
+John earns 20
+Game Over
+John wins the round and banks 20
+John's total banked amount is 20
+Maria's total banked amount is 550
+Round 3: bubble
+John rolls 10
+John rolls Jackpot
+John guesses x
+John reveals 0 letters
+Maria rolls 16
+Maria rolls Jackpot
+Maria guesses t
+Maria reveals 0 letters
+John rolls 13
+John rolls SecondChance
+John guesses m
+John reveals 0 letters
+Maria rolls 10
+Maria rolls 100EUR
+Maria guesses n
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 12
+John rolls 150EUR
+John guesses q
 John reveals 0 letters
 John loses turn due to inappropriate letter choice
-Maria rolls 1
-Maria rolls 200EUR
-Maria guesses d
+Maria rolls 4
+Maria rolls 100EUR
+Maria guesses h
 Maria reveals 0 letters
 Maria loses turn due to inappropriate letter choice
 John rolls 8
-John rolls 100EUR
-John guesses u
-John reveals 1 letter
-John earns 100
-John rolls 11
-John rolls Steal
-John guesses o
-John reveals 0 letters
-Maria rolls 2
-Maria rolls 50EUR
-Maria guesses m
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 4
-John rolls LoseTurn
-John loses turn
-Maria rolls 12
-Maria rolls 50EUR
-Maria guesses k
-Maria reveals 0 letters
-Maria loses turn due to inappropriate letter choice
-John rolls 7
-John rolls 60EUR
-John guesses j
+John rolls 200EUR
+John guesses p
 John reveals 0 letters
 John loses turn due to inappropriate letter choice
+Maria rolls 13
+Maria rolls 40EUR
+Maria guesses u
+Maria reveals 1 letter
+Maria earns 40
 Maria rolls 10
-Maria rolls Bankrupt+
-Maria rolls Bankrupt+ and loses everything
-John rolls 9
-John rolls 80EUR
-John guesses t
-John reveals 2 letters
-John earns 160
+Maria rolls 20EUR
+Maria guesses f
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
 John rolls 3
-John rolls 30EUR
-John guesses r
+John rolls 500EUR
+John guesses a
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 9
+Maria rolls Steal
+Maria guesses g
+Maria reveals 0 letters
+John rolls 1
+John rolls 150EUR
+John guesses l
 John reveals 1 letter
-John earns 30
+John earns 150
+John rolls 10
+John rolls SecondChance
+John guesses s
+John reveals 0 letters
+Maria rolls 3
+Maria rolls Jackpot
+Maria guesses k
+Maria reveals 0 letters
+John rolls 1
+John rolls 30EUR
+John guesses b
+John reveals 3 letters
+John earns 90
+John rolls 10
+John rolls 60EUR
+John guesses c
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 6
+Maria rolls 30EUR
+Maria guesses r
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
 John rolls 16
 John rolls 30EUR
-John guesses x
+John guesses w
 John reveals 0 letters
 John loses turn due to inappropriate letter choice
 Maria rolls 15
 Maria rolls Jackpot
-Maria guesses f
+Maria guesses z
 Maria reveals 0 letters
-John rolls 6
-John rolls 20EUR
-John guesses l
-John reveals 1 letter
-John earns 20
-John rolls 16
-John rolls 20EUR
-John guesses s
+John rolls 14
+John rolls 80EUR
+John guesses j
 John reveals 0 letters
 John loses turn due to inappropriate letter choice
-Maria rolls 16
-Maria rolls 20EUR
-Maria guesses b
+Maria rolls 15
+Maria rolls SecondChance
+Maria guesses d
+Maria reveals 0 letters
+John rolls 10
+John rolls 100EUR
+John guesses y
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 12
+Maria rolls 150EUR
+Maria guesses o
 Maria reveals 0 letters
 Maria loses turn due to inappropriate letter choice
-John rolls 11
+John rolls 8
+John rolls 60EUR
+John guesses v
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 11
+Maria rolls 20EUR
+Maria guesses i
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 2
+John rolls LoseTurn
+John loses turn
+Maria rolls 3
+Maria rolls 60EUR
+Maria guesses e
+Maria reveals 1 letter
+Maria earns 60
+Game Over
+Maria wins the round and banks 100
+Maria's total banked amount is 650
+John's total banked amount is 260
+Round 4: triangulate
+Maria rolls 6
+Maria rolls 30EUR
+Maria guesses i
+Maria reveals 1 letter
+Maria earns 30
+Maria rolls 15
+Maria rolls Jackpot
+Maria guesses u
+Maria reveals 1 letter
+Maria doubles banked money
+Maria rolls 16
+Maria rolls Jackpot
+Maria guesses a
+Maria reveals 2 letters
+Maria doubles banked money
+Maria rolls 15
+Maria rolls 200EUR
+Maria guesses p
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 7
+John rolls 20EUR
+John guesses y
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 10
+Maria rolls Jackpot
+Maria guesses l
+Maria reveals 1 letter
+Maria doubles banked money
+Maria rolls 3
+Maria rolls 150EUR
+Maria guesses s
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 4
+John rolls 100EUR
+John guesses w
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 14
+Maria rolls Bankrupt+
+Maria rolls Bankrupt+ and loses everything
+John rolls 9
+John rolls 80EUR
+John guesses b
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 6
+Maria rolls 50EUR
+Maria guesses v
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 6
+John rolls Bankrupt
+Maria rolls 15
+Maria rolls 500EUR
+Maria guesses g
+Maria reveals 1 letter
+Maria earns 500
+Maria rolls 11
+Maria rolls 50EUR
+Maria guesses q
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 14
+John rolls Steal
+John guesses h
+John reveals 0 letters
+Maria rolls 2
+Maria rolls 50EUR
+Maria guesses t
+Maria reveals 2 letters
+Maria earns 100
+Maria rolls 4
+Maria rolls LoseTurn
+Maria loses turn
+John rolls 9
 John rolls 30EUR
+John guesses x
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 14
+Maria rolls 200EUR
+Maria guesses z
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 3
+John rolls Steal
+John guesses j
+John reveals 0 letters
+Maria rolls 2
+Maria rolls 50EUR
+Maria guesses c
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 10
+John rolls 80EUR
+John guesses d
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 3
+Maria rolls 30EUR
+Maria guesses o
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 6
+John rolls 100EUR
+John guesses k
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 5
+Maria rolls 40EUR
+Maria guesses e
+Maria reveals 1 letter
+Maria earns 40
+Maria rolls 7
+Maria rolls 150EUR
+Maria guesses r
+Maria reveals 1 letter
+Maria earns 150
+Maria rolls 14
+Maria rolls 30EUR
+Maria guesses m
+Maria reveals 0 letters
+Maria loses turn due to inappropriate letter choice
+John rolls 2
+John rolls 150EUR
+John guesses f
+John reveals 0 letters
+John loses turn due to inappropriate letter choice
+Maria rolls 5
+Maria rolls LoseTurn
+Maria loses turn
+John rolls 4
+John rolls 40EUR
 John guesses n
 John reveals 1 letter
-John earns 30
+John earns 40
 Game Over
-John wins the round and banks 380
-John's total banked amount is 380
-Maria's total banked amount is 0
+John wins the round and banks 40
+John's total banked amount is 300
+Maria's total banked amount is 790
 
-C:\Users\ASerdyukov\source\repos\WheelOfFortune-for-CO2402\x64\Debug\WheelOfFortune-for-CO2402.exe (process 12100) exited with code 0.
+C:\Users\user\source\repos\WheelOfFortune-for-CO2402\x64\Debug\WheelOfFortune-for-CO2402.exe (process 18172) exited with code 0.
 To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
 Press any key to close this window . . .
