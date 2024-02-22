@@ -63,8 +63,7 @@ public:
 		
 		stream >> type >> amount >> name;
 		if (stream.fail()) {
-			cerr << "Error: Failed to parse the string." << endl;
-			
+			cerr << "Error: Failed to parse the string." << endl;		
 		}
 		
 	}
@@ -84,21 +83,16 @@ public:
 		char chosenLetter = round.alphbet[chosenInt];
 		round.alphbet.erase(chosenInt, 1);
 
-		int letterCount = 0;
+		//int letterCount = 0;
 		cout << currentPlayer.name << " guesses " << chosenLetter << endl;
+		
+		int letterCount = count(round.copyOfWord.begin(), round.copyOfWord.end(), chosenLetter);
+		round.copyOfWord.erase(remove(round.copyOfWord.begin(), round.copyOfWord.end(), chosenLetter), round.copyOfWord.end());
 
-		for (int i = 0; i < round.copyOfWord.length(); i++) {
-			if (round.copyOfWord.at(i) == chosenLetter) {
-				round.copyOfWord.erase(i, 1);
-
-				i--; //If the same letter is consecutive need to return to the same index
-				letterCount++;
-			}
-		}
 		cout << currentPlayer.name << " reveals " << letterCount << " letter" << ((letterCount > 1) || letterCount == 0 ? "s" : "") << endl;
 
 		//Ending the round
-		if (round.copyOfWord.length() == 0) {
+		if (round.copyOfWord.empty()) {
 
 			round.isFinished = true;
 		}
@@ -249,7 +243,7 @@ public:
 		while (getline(inputFile, line)) {
 			istringstream iss(line);
 
-			array.push_back(make_unique<CRound>(&iss));
+			array.emplace_back(make_unique<CRound>(&iss));
 		}
 		inputFile.close();
 	}
@@ -268,19 +262,19 @@ public:
 		while (getline(inputFile, line)) {		
 			
 			if (line[0] == '1') {
-				array.push_back(make_unique<CRegularSlice>(&line));
+				array.emplace_back(make_unique<CRegularSlice>(&line));
 			} else if (line[0] == '2') {
-				array.push_back(make_unique<CLoseTurnSlice>(&line));
+				array.emplace_back(make_unique<CLoseTurnSlice>(&line));
 			} else if (line[0] == '3') {
-				array.push_back(make_unique<CBankruptSlice>(&line));
+				array.emplace_back(make_unique<CBankruptSlice>(&line));
 			} else if (line[0] == '4') {
-				array.push_back(make_unique<CBankruptPlusSlice>(&line));
+				array.emplace_back(make_unique<CBankruptPlusSlice>(&line));
 			} else if (line[0] == '5') {
-				array.push_back(make_unique<CSecondChance>(&line));
+				array.emplace_back(make_unique<CSecondChance>(&line));
 			} else if (line[0] == '6') {
-				array.push_back(make_unique<CStealSlice>(&line));
+				array.emplace_back(make_unique<CStealSlice>(&line));
 			} else if (line[0] == '7') {
-				array.push_back(make_unique<CJackpotSlice>(&line));
+				array.emplace_back(make_unique<CJackpotSlice>(&line));
 			}
 			else {
 				cerr << "Could not create a slice";
@@ -344,11 +338,9 @@ public:
 
 				//Rolling the next slice
 				int rollNumber = Random(numberOfSlices);
-				currentSliceIndex += rollNumber;
-				//Wrapping around the wheel
-				if (currentSliceIndex > numberOfSlices - 1) {
-					currentSliceIndex -= numberOfSlices;
-				}
+				
+				currentSliceIndex = (currentSliceIndex + rollNumber) % numberOfSlices;
+
 				cout << currentPlayer.lock()->name << " rolls " << rollNumber << endl;
 				
 
