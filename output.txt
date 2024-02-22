@@ -563,6 +563,6 @@ John wins the round and banks 40
 John's total banked amount is 300
 Maria's total banked amount is 790
 
-C:\Users\user\source\repos\WheelOfFortune-for-CO2402\x64\Debug\WheelOfFortune-for-CO2402.exe (process 18172) exited with code 0.
+C:\Users\user\source\repos\WheelOfFortune-for-CO2402\x64\Debug\WheelOfFortune-for-CO2402.exe (process 5316) exited with code 0.
 To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
 Press any key to close this window . . .

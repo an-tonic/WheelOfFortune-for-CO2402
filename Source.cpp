@@ -15,86 +15,97 @@ using namespace std;
 // Returns a random number in the range 0 .. x
 // Note that I am using casting to convert one data type to another
 int Random(int x) {
-	
+
 	return static_cast<int>(static_cast<double> (rand()) / (RAND_MAX)*x + 1);
 }
 
 //classes
 class CRound {
 public:
-	string word;
-	string copyOfWord;
-	bool isFinished;
-
-	string alphbet = "abcdefghijklmnopqrstuvwxyz";
+	string mWord;
+	string mCopyOfWord;
+	bool mIsFinished;
+	string mAlphabet = "abcdefghijklmnopqrstuvwxyz";
 
 	CRound(istringstream* stream) {
 
-		*stream >> this->word;
-		copyOfWord = word;
-		isFinished = false;
+		*stream >> this->mWord;
+		mCopyOfWord = mWord;
+		mIsFinished = false;
 	}
 
 };
 
 class CPlayer {
 public:
-	string name;
-	int totalBank;
-	int currentRoundBank;
-	int secondChanceTokens;
+	string mName;
+	int mTotalBank;
+	int mCurrentRoundBank;
+	int mSecondChanceTokens;
 
 	CPlayer(string newName) {
-		totalBank = 0;
-		currentRoundBank = 0;
-		secondChanceTokens = 0;
-		name = newName;
+		mTotalBank = 0;
+		mCurrentRoundBank = 0;
+		mSecondChanceTokens = 0;
+		mName = newName;
 	}
 };
 
 class CSlice {
 public:
-	int type;
-	int amount;
-	string name;
+	int mType;
+	int mAmount;
+	string mName;
 
 	CSlice(string* line) {
 		istringstream stream(*line);
-		
-		stream >> type >> amount >> name;
-		if (stream.fail()) {
-			cerr << "Error: Failed to parse the string." << endl;		
-		}
-		
-	}
-	bool executeSlice(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) {
-		cout << currentPlayer.name << " rolls " << this->name << endl;
-		return executeSliceActions(round, opponentPlayer, currentPlayer);
-	}
-	
 
-	virtual bool executeSliceActions(CRound& round,  CPlayer& opponentPlayer, CPlayer& currentPlayer) {
+		stream >> mType >> mAmount >> mName;
+		if (stream.fail())
+		{
+			cerr << "Error: Failed to parse the string." << endl;
+		}
+
+	}
+
+	/**
+	* Prints which player rolls which slice and then executes the slice
+	*
+	* @return If the player should be switched to the other one
+	*/
+	bool ExecuteSlice(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) {
+		cout << currentPlayer.mName << " rolls " << this->mName << endl;
+		return ExecuteSliceActions(round, opponentPlayer, currentPlayer);
+	}
+
+
+	virtual bool ExecuteSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) {
 		return false;
 	}
 
-	int revealLetter(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) {
+	/**
+	* Counts occurencies of a letter in a string and deletes them. Also, finishes the round if the string is empty
+	*
+	* @return Number of letters deleted
+	*/
+	int RevealLetter(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) {
 
-		int chosenInt = Random(round.alphbet.length()) - 1;
-		char chosenLetter = round.alphbet[chosenInt];
-		round.alphbet.erase(chosenInt, 1);
+		int chosenInt = Random(round.mAlphabet.length()) - 1;
+		char chosenLetter = round.mAlphabet[chosenInt];
+		round.mAlphabet.erase(chosenInt, 1);
 
-		//int letterCount = 0;
-		cout << currentPlayer.name << " guesses " << chosenLetter << endl;
-		
-		int letterCount = count(round.copyOfWord.begin(), round.copyOfWord.end(), chosenLetter);
-		round.copyOfWord.erase(remove(round.copyOfWord.begin(), round.copyOfWord.end(), chosenLetter), round.copyOfWord.end());
+		cout << currentPlayer.mName << " guesses " << chosenLetter << endl;
+		//Need first to count letters and remove them (even the duplicates)
+		int letterCount = count(round.mCopyOfWord.begin(), round.mCopyOfWord.end(), chosenLetter);
+		round.mCopyOfWord.erase(remove(round.mCopyOfWord.begin(), round.mCopyOfWord.end(), chosenLetter), round.mCopyOfWord.end());
 
-		cout << currentPlayer.name << " reveals " << letterCount << " letter" << ((letterCount > 1) || letterCount == 0 ? "s" : "") << endl;
+		cout << currentPlayer.mName << " reveals " << letterCount << " letter" << ((letterCount > 1) || letterCount == 0 ? "s" : "") << endl;
 
 		//Ending the round
-		if (round.copyOfWord.empty()) {
+		if (round.mCopyOfWord.empty())
+		{
 
-			round.isFinished = true;
+			round.mIsFinished = true;
 		}
 
 		return letterCount;
@@ -106,19 +117,24 @@ class CRegularSlice : public CSlice {
 public:
 
 	using CSlice::CSlice;
+	/**
+	* If letter is revealed puts the amount into current bank for this round
+	*
+	* @return If the player should be switched to the other one
+	*/
+	bool ExecuteSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
-	bool executeSliceActions(CRound& round,  CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
+		int letterCount = this->RevealLetter(round, opponentPlayer, currentPlayer);
 
-		int letterCount = this->revealLetter(round, opponentPlayer, currentPlayer);
-	
-		if (letterCount > 0) {
-			int sliceBank = this->amount * letterCount;
-			currentPlayer.currentRoundBank += sliceBank;
-			cout << currentPlayer.name << " earns " << sliceBank << endl;
+		if (letterCount > 0)
+		{
+			int sliceBank = this->mAmount * letterCount;
+			currentPlayer.mCurrentRoundBank += sliceBank;
+			cout << currentPlayer.mName << " earns " << sliceBank << endl;
 			return false;
 		}
 
-		cout << currentPlayer.name << " loses turn due to inappropriate letter choice" << endl;
+		cout << currentPlayer.mName << " loses turn due to inappropriate letter choice" << endl;
 		return true;
 	}
 };
@@ -126,10 +142,14 @@ public:
 class CLoseTurnSlice : public CSlice {
 public:
 	using CSlice::CSlice;
+	/**
+	* Current player losses the turn
+	*
+	* @return The player must be switched to the other one
+	*/
+	bool ExecuteSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
-	bool executeSliceActions(CRound& round,  CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
-			
-		cout << currentPlayer.name << " loses turn" << endl;
+		cout << currentPlayer.mName << " loses turn" << endl;
 		return true;
 	}
 };
@@ -137,15 +157,20 @@ public:
 class CStealSlice : public CSlice {
 public:
 	using CSlice::CSlice;
+	/**
+	* Halves opponent toatal bank, adds the same amount to the current player
+	*
+	* @return If the player should be switched to the other one
+	*/
+	bool ExecuteSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
-	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
+		int letterCount = this->RevealLetter(round, opponentPlayer, currentPlayer);
 
-		int letterCount = this->revealLetter(round, opponentPlayer, currentPlayer);
-
-		if (letterCount > 0) {
-			opponentPlayer.totalBank *= 0.5;
-			currentPlayer.totalBank += opponentPlayer.totalBank;
-			cout << currentPlayer.name << " steals " << opponentPlayer.totalBank << " from " << opponentPlayer.name << endl;
+		if (letterCount > 0)
+		{
+			opponentPlayer.mTotalBank *= 0.5;
+			currentPlayer.mTotalBank += opponentPlayer.mTotalBank;
+			cout << currentPlayer.mName << " steals " << opponentPlayer.mTotalBank << " from " << opponentPlayer.mName << endl;
 			return false;
 		}
 		return true;
@@ -155,15 +180,19 @@ public:
 class CJackpotSlice : public CSlice {
 public:
 	using CSlice::CSlice;
+	/**
+	* Doubles current player's total money
+	*
+	* @return If the player should be switched to the other one
+	*/
+	bool ExecuteSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
-	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
+		int letterCount = this->RevealLetter(round, opponentPlayer, currentPlayer);
 
-		int letterCount = this->revealLetter(round, opponentPlayer, currentPlayer);
-
-		if (letterCount > 0) {
-			
-			currentPlayer.totalBank *= 2;
-			cout << currentPlayer.name << " doubles banked money" << endl;
+		if (letterCount > 0)
+		{
+			currentPlayer.mTotalBank *= 2;
+			cout << currentPlayer.mName << " doubles banked money" << endl;
 			return false;
 		}
 		return true;
@@ -173,11 +202,15 @@ public:
 class CBankruptSlice : public CSlice {
 public:
 	using CSlice::CSlice;
+	/**
+	* If letter is revealed zeroes bank earning during this round and all tokens
+	*
+	* @return If the player should be switched to the other one
+	*/
+	bool ExecuteSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
-	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
-
-		currentPlayer.currentRoundBank = 0;
-		currentPlayer.secondChanceTokens = 0;
+		currentPlayer.mCurrentRoundBank = 0;
+		currentPlayer.mSecondChanceTokens = 0;
 		return true;
 	}
 };
@@ -185,14 +218,18 @@ public:
 class CBankruptPlusSlice : public CBankruptSlice {
 public:
 	using CBankruptSlice::CBankruptSlice;
+	/**
+	* If letter is revealed zeroes bank earning during this round, total bank and all tokens
+	*
+	* @return If the player should be switched to the other one
+	*/
+	bool ExecuteSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
-	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
-		
-		CBankruptSlice::executeSliceActions(round, opponentPlayer, currentPlayer);
+		CBankruptSlice::ExecuteSliceActions(round, opponentPlayer, currentPlayer);
 
-		
-		currentPlayer.totalBank = 0;  
-		cout << currentPlayer.name << " rolls Bankrupt+ and loses everything" << endl;
+
+		currentPlayer.mTotalBank = 0;
+		cout << currentPlayer.mName << " rolls Bankrupt+ and loses everything" << endl;
 		return true;
 	}
 };
@@ -200,14 +237,19 @@ public:
 class CSecondChance : public CSlice {
 public:
 	using CSlice::CSlice;
+	/**
+	* If letter is revealed increases the token by one
+	*
+	* @return If the player should be switched to the other one
+	*/
+	bool ExecuteSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
 
-	bool executeSliceActions(CRound& round, CPlayer& opponentPlayer, CPlayer& currentPlayer) override {
+		int letterCount = this->RevealLetter(round, opponentPlayer, currentPlayer);
 
-		int letterCount = this->revealLetter(round, opponentPlayer, currentPlayer);
-
-		if (letterCount > 0) {
+		if (letterCount > 0)
+		{
 			cout << "Number of SecondChance tokens earned: " << 1 << endl;
-			currentPlayer.secondChanceTokens += 1;
+			currentPlayer.mSecondChanceTokens += 1;
 			return false;
 		}
 		return true;
@@ -217,22 +259,25 @@ public:
 
 class Game {
 private:
-	vector<unique_ptr<CSlice>> SlicesArray;
-	vector<unique_ptr<CRound>> RoundsArray;
-	shared_ptr<CPlayer> firstPlayer;
-	shared_ptr<CPlayer> secondPlayer;
+	vector<unique_ptr<CSlice>> mSlicesArray;
+	vector<unique_ptr<CRound>> mRoundsArray;
+	shared_ptr<CPlayer> mpFirstPlayer;
+	shared_ptr<CPlayer> mpSecondPlayer;
 
-	weak_ptr<CPlayer> currentPlayer;
-	weak_ptr<CPlayer> opponentPlayer;
-	int currentSliceIndex;
-	int numberOfSlices;
+	weak_ptr<CPlayer> mpCurrentPlayer;
+	weak_ptr<CPlayer> mpOpponentPlayer;
+	int mCurrentSliceIndex;
+	int mNumberOfSlices;
 
 public:
-
+	/**
+	* Puts words that need to be played during rounds into a vector
+	*/
 	void ReadFileWithRounds(string filename, vector<unique_ptr<CRound>>& array) {
 		ifstream inputFile(filename);
 
-		if (!inputFile.is_open()) {
+		if (!inputFile.is_open())
+		{
 			cerr << "Error opening the file" << endl;
 			exit(1);
 		}
@@ -240,18 +285,22 @@ public:
 		string line;
 
 		// Read each line from the file
-		while (getline(inputFile, line)) {
+		while (getline(inputFile, line))
+		{
 			istringstream iss(line);
 
 			array.emplace_back(make_unique<CRound>(&iss));
 		}
 		inputFile.close();
 	}
-
+	/**
+	* Puts information about slice(type, name, amount) into a vector 
+	*/
 	void ReadFileWithSlices(string filename, vector<unique_ptr<CSlice>>& array) {
 		ifstream inputFile(filename);
 
-		if (!inputFile.is_open()) {
+		if (!inputFile.is_open())
+		{
 			cerr << "Error opening the file" << endl;
 			exit(1);
 		}
@@ -259,24 +308,32 @@ public:
 		string line;
 
 		// Read each line from the file
-		while (getline(inputFile, line)) {		
-			
-			if (line[0] == '1') {
+		while (getline(inputFile, line))
+		{
+
+			if (line[0] == '1')
+			{
 				array.emplace_back(make_unique<CRegularSlice>(&line));
-			} else if (line[0] == '2') {
+			} else if (line[0] == '2')
+			{
 				array.emplace_back(make_unique<CLoseTurnSlice>(&line));
-			} else if (line[0] == '3') {
+			} else if (line[0] == '3')
+			{
 				array.emplace_back(make_unique<CBankruptSlice>(&line));
-			} else if (line[0] == '4') {
+			} else if (line[0] == '4')
+			{
 				array.emplace_back(make_unique<CBankruptPlusSlice>(&line));
-			} else if (line[0] == '5') {
+			} else if (line[0] == '5')
+			{
 				array.emplace_back(make_unique<CSecondChance>(&line));
-			} else if (line[0] == '6') {
+			} else if (line[0] == '6')
+			{
 				array.emplace_back(make_unique<CStealSlice>(&line));
-			} else if (line[0] == '7') {
+			} else if (line[0] == '7')
+			{
 				array.emplace_back(make_unique<CJackpotSlice>(&line));
-			}
-			else {
+			} else
+			{
 				cerr << "Could not create a slice";
 				exit(1);
 			}
@@ -285,18 +342,22 @@ public:
 
 		inputFile.close();
 	}
-
+	/**
+	* Reads a seed from file, and seeds the random function with it
+	*/
 	void ReadFileWithSeed(string filename) {
 		ifstream inputFile(filename);
 
-		if (!inputFile.is_open()) {
+		if (!inputFile.is_open())
+		{
 			cerr << "Error opening the file" << endl;
 			exit(1);
 		}
 
 		string line;
 
-		while (getline(inputFile, line)) {
+		while (getline(inputFile, line))
+		{
 			int seed = stoi(line);
 			srand(seed);
 		}
@@ -304,70 +365,78 @@ public:
 	}
 
 	Game() {
-		currentSliceIndex = 0;
-		ReadFileWithSlices("wheel.txt", SlicesArray);
-		ReadFileWithRounds("rounds.txt", RoundsArray);
+		mCurrentSliceIndex = 0;
+		ReadFileWithSlices("wheel.txt", mSlicesArray);
+		ReadFileWithRounds("rounds.txt", mRoundsArray);
 		ReadFileWithSeed("seed.txt");
-		numberOfSlices = SlicesArray.size();
-		firstPlayer = make_shared<CPlayer>("John");
-		secondPlayer = make_shared<CPlayer>("Maria");
-		currentPlayer = firstPlayer;
-		opponentPlayer = secondPlayer;
+		mNumberOfSlices = mSlicesArray.size();
+		mpFirstPlayer = make_shared<CPlayer>("John");
+		mpSecondPlayer = make_shared<CPlayer>("Maria");
+		mpCurrentPlayer = mpFirstPlayer;
+		mpOpponentPlayer = mpSecondPlayer;
 	}
-
+	/**
+	* Swaps players with each other
+	*/
 	void SetNextPlayer() {
-		
-		currentPlayer = (currentPlayer.lock() == firstPlayer) ? secondPlayer : firstPlayer;
-		opponentPlayer = (currentPlayer.lock() == firstPlayer) ? secondPlayer : firstPlayer;
+
+		mpCurrentPlayer = (mpCurrentPlayer.lock() == mpFirstPlayer) ? mpSecondPlayer : mpFirstPlayer;
+		mpOpponentPlayer = (mpCurrentPlayer.lock() == mpFirstPlayer) ? mpSecondPlayer : mpFirstPlayer;
 
 	}
 
+	/**
+	* Starts the whole game
+	*/
 	void StartGame() {
 		cout << "Welcome to WheelOfFortune-ish" << endl;
 
 		int roundIndex = 1;
 
-		for (auto& round : RoundsArray) {
-			cout << "Round " << roundIndex << ": " << round->word << endl;
+		for (auto& round : mRoundsArray)
+		{
+			cout << "Round " << roundIndex << ": " << round->mWord << endl;
 
 			//Determine the first player for this round
-			currentPlayer = (roundIndex % 2 == 0) ? secondPlayer : firstPlayer;
+			mpCurrentPlayer = (roundIndex % 2 == 0) ? mpSecondPlayer : mpFirstPlayer;
 			int index = 0;
-			
-			while (!round.get()->isFinished) {
+
+			while (!round.get()->mIsFinished)
+			{
 
 				//Rolling the next slice
-				int rollNumber = Random(numberOfSlices);
-				
-				currentSliceIndex = (currentSliceIndex + rollNumber) % numberOfSlices;
+				int rollNumber = Random(mNumberOfSlices);
 
-				cout << currentPlayer.lock()->name << " rolls " << rollNumber << endl;
-				
+				mCurrentSliceIndex = (mCurrentSliceIndex + rollNumber) % mNumberOfSlices;
 
-				bool isNextPlayerTurn = SlicesArray.at(currentSliceIndex)->executeSlice(*round, *opponentPlayer.lock(), *currentPlayer.lock());
-				
-				if (currentPlayer.lock()->secondChanceTokens > 0 && isNextPlayerTurn) {
+				cout << mpCurrentPlayer.lock()->mName << " rolls " << rollNumber << endl;
+
+				bool isNextPlayerTurn = mSlicesArray.at(mCurrentSliceIndex)->ExecuteSlice(*round, *mpOpponentPlayer.lock(), *mpCurrentPlayer.lock());
+
+				if (mpCurrentPlayer.lock()->mSecondChanceTokens > 0 && isNextPlayerTurn)
+				{
 					isNextPlayerTurn = false;
-					currentPlayer.lock()->secondChanceTokens--;
-					cout << currentPlayer.lock()->name << " uses SecondChance token" << endl;
-					cout << "Remaining SecondChance tokens: " << currentPlayer.lock()->secondChanceTokens << endl;
+					mpCurrentPlayer.lock()->mSecondChanceTokens--;
+					cout << mpCurrentPlayer.lock()->mName << " uses SecondChance token" << endl;
+					cout << "Remaining SecondChance tokens: " << mpCurrentPlayer.lock()->mSecondChanceTokens << endl;
 
 				}
-				
-				if (isNextPlayerTurn) {
+
+				if (isNextPlayerTurn)
+				{
 					SetNextPlayer();
 				}
 
 			}
 			cout << "Game Over" << endl;;
-			cout << currentPlayer.lock()->name << " wins the round and banks " << currentPlayer.lock()->currentRoundBank << endl;
+			cout << mpCurrentPlayer.lock()->mName << " wins the round and banks " << mpCurrentPlayer.lock()->mCurrentRoundBank << endl;
 
-			currentPlayer.lock()->totalBank += currentPlayer.lock()->currentRoundBank;
-			opponentPlayer.lock()->totalBank += opponentPlayer.lock()->currentRoundBank;
-			cout << currentPlayer.lock()->name << "'s total banked amount is " << currentPlayer.lock()->totalBank << endl;
-			cout << opponentPlayer.lock()->name << "'s total banked amount is " << opponentPlayer.lock()->totalBank << endl;
-			currentPlayer.lock()->currentRoundBank = 0;
-			opponentPlayer.lock()->currentRoundBank = 0;
+			mpCurrentPlayer.lock()->mTotalBank += mpCurrentPlayer.lock()->mCurrentRoundBank;
+			mpOpponentPlayer.lock()->mTotalBank += mpOpponentPlayer.lock()->mCurrentRoundBank;
+			cout << mpCurrentPlayer.lock()->mName << "'s total banked amount is " << mpCurrentPlayer.lock()->mTotalBank << endl;
+			cout << mpOpponentPlayer.lock()->mName << "'s total banked amount is " << mpOpponentPlayer.lock()->mTotalBank << endl;
+			mpCurrentPlayer.lock()->mCurrentRoundBank = 0;
+			mpOpponentPlayer.lock()->mCurrentRoundBank = 0;
 
 			roundIndex++;
 		}
@@ -382,12 +451,13 @@ int main() {
 	unique_ptr<Game> pGame = make_unique<Game>();
 	pGame->StartGame();
 
+	//Needs to be here, otherwise the pGame pointer does not go out of scope and leaks memory
 	pGame.reset();
-	
+
 
 	_CrtDumpMemoryLeaks();
 
-	
+
 
 
 }
